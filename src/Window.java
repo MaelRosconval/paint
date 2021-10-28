@@ -76,7 +76,7 @@ public class Window extends JFrame {
         this.setVisible(true);
         }
 
-        public static void main (String args[]){
+        public static void main (String[] args){
         Window win = new Window("Paint",800,600);
         }
 
