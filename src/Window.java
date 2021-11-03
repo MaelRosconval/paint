@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Window extends JFrame implements ActionListener, MenuListener {
+public class Window extends JFrame implements ActionListener{
     private Drawing dessin = new Drawing();
 
     public Window(String Title,int x,int y){
@@ -18,15 +18,18 @@ public class Window extends JFrame implements ActionListener, MenuListener {
         /* Panel barre des menu*/
         JPanel northPanel = new JPanel(); //Création du panel
         northPanel.setLayout(new GridLayout()); //On delimite le layout du panel
+
         JMenuBar m= new JMenuBar(); // On créer la barre de menu
         JMenu menu1= new JMenu("File"); // onglet file
         JMenu menu2 = new JMenu("About"); // onglet about
         JMenuItem open = new JMenuItem("Open") ;
         JMenuItem save = new JMenuItem("Save");
         JMenuItem nouveau  = new JMenuItem("New");
+        JMenuItem auteur = new JMenuItem("Authors");
         menu1.add(nouveau);
         menu1.add(open);
         menu1.add(save);
+        menu2.add(auteur);
         m.add(menu1);
         m.add(menu2);
         northPanel.add(m);
@@ -91,7 +94,8 @@ public class Window extends JFrame implements ActionListener, MenuListener {
         cercle.addActionListener( this);
         ellipse.addActionListener( this);
 
-        menu2.addMenuListener( this);
+        auteur.addActionListener( this);
+
 
         /* ajout des boutons*/
         southWest.add(rouge);
@@ -149,23 +153,22 @@ public class Window extends JFrame implements ActionListener, MenuListener {
                     case "Jaune":
                         dessin.setC(Color.YELLOW);
                         break;
+                    case "Rectangle":
+                        dessin.setC(Color.YELLOW);
+                        break;
+                    case "Carre":
+                        dessin.setC(Color.YELLOW);
+                        break;
+                    case "Cercle":
+                        dessin.setC(Color.YELLOW);
+                        break;
+                    case "Ellipse":
+                        dessin.setC(Color.YELLOW);
+                        break;
+                    case "Authors":
+                        JOptionPane info = new JOptionPane();
+                        info.showInternalMessageDialog(info,"Authors : Maël","information",JOptionPane.INFORMATION_MESSAGE);
+                        break;
             }
-
         }
-
-    @Override
-    public void menuSelected(MenuEvent e) {
-        JOptionPane info = new JOptionPane();
-        info.showInternalMessageDialog(info,"Authors : Maël","information",JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public void menuDeselected(MenuEvent e) {
-
-    }
-
-    @Override
-    public void menuCanceled(MenuEvent e) {
-
-    }
 }
