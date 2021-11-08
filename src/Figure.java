@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 public abstract class Figure {
     protected Color c;
-    private Point p0;
+    protected Point p0;
 
     public Point getP0() {
         return p0;

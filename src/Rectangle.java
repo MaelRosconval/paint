@@ -8,8 +8,8 @@ public class Rectangle extends Figure {
 
     public Rectangle(Color c, Point p) {
         super(c,p);
-        this.width = 0;
-        this.length =0;
+        this.width = 50;
+        this.length =50;
     }
 
     public void setBoundingBox(int length, int width){
@@ -17,7 +17,9 @@ public class Rectangle extends Figure {
         this.length = length;
     }
 
-    public void draw(Graphics g){};
+    public void draw(Graphics g){
+        g.fillRect(this.p0.getX(), this.p0.getY(),this.width,this.length);
+    };
 
     public static void main(String[] args){
         Rectangle r1 = new Rectangle(Color.RED,new Point(5,150));

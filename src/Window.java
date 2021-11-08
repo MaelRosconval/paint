@@ -4,9 +4,10 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
 public class Window extends JFrame implements ActionListener{
-    private Drawing dessin = new Drawing();
+    protected Drawing dessin = new Drawing();
 
     public Window(String Title,int x,int y){
         super(Title);
@@ -111,16 +112,12 @@ public class Window extends JFrame implements ActionListener{
         southPanel.add(southEast);
         contentPanel.add(southPanel,"South");
 
-        JPanel centrePanel = new JPanel();
-        centrePanel.setBackground(Color.WHITE);
+        JPanel centrePanel = dessin;
         contentPanel.add(centrePanel,"Center");
 
         this.setVisible(true);
 
-        }
 
-        public static void main (String[] args){
-        Window win = new Window("Paint",800,600);
         }
 
         @Override
@@ -130,8 +127,8 @@ public class Window extends JFrame implements ActionListener{
             switch(cmd)
             {
                     case "Rouge":
-                            dessin.setC(Color.RED);
-                            break;
+                        dessin.setC(Color.RED);
+                        break;
                     case "Bleu":
                         dessin.setC(Color.BLUE);
                         break;
@@ -154,16 +151,16 @@ public class Window extends JFrame implements ActionListener{
                         dessin.setC(Color.YELLOW);
                         break;
                     case "Rectangle":
-                        dessin.setC(Color.YELLOW);
+                        dessin.setFig("Rectangle");
                         break;
                     case "Carre":
-                        dessin.setC(Color.YELLOW);
+                        dessin.setFig("Carre");
                         break;
                     case "Cercle":
-                        dessin.setC(Color.YELLOW);
+                        dessin.setFig("Cercle");
                         break;
                     case "Ellipse":
-                        dessin.setC(Color.YELLOW);
+                        dessin.setFig("Ellipse");
                         break;
                     case "Authors":
                         JOptionPane info = new JOptionPane();
@@ -171,4 +168,7 @@ public class Window extends JFrame implements ActionListener{
                         break;
             }
         }
+    public static void main (String[] args){
+        Window win = new Window("Paint",800,600);
+    }
 }
