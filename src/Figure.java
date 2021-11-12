@@ -4,6 +4,11 @@ import java.awt.Graphics;
 
 public abstract class Figure {
     protected Color c;
+
+    public void setP0(Point p0) {
+        this.p0 = p0;
+    }
+
     protected Point p0;
 
     public Point getP0() {

@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 public class Drawing extends JPanel implements MouseInputListener {
     private Color c;
-    private ArrayList<Figure> listFig = new ArrayList<Figure>();
+    private ArrayList<Figure> listFig = new ArrayList<>();
     private String fig;
+    private int x;
+    private int y;
 
     public void setC(Color c) {
         this.c = c;
@@ -20,8 +22,8 @@ public class Drawing extends JPanel implements MouseInputListener {
     public Drawing(){
         super();
         this.setBackground(Color.white);
-        this.c = Color.black;
-        this.fig = "Rectangle";
+        this.c = Color.red;
+        this.fig = "Carre";
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
@@ -33,6 +35,25 @@ public class Drawing extends JPanel implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        this.x= e.getX();
+        this.y= e.getY();
+        System.out.println(c);
+        switch(fig){
+            case "Carre":
+                listFig.add(new Carre(this.c,new Point(x,y)));
+                break;
+            case "Rectangle":
+                listFig.add(new Rectangle(this.c,new Point(x,y)));
+                break;
+            case "Ellipse":
+                listFig.add(new Ellipse(this.c,new Point(x,y)));
+                break;
+            case "Cercle":
+                listFig.add(new Cercle(this.c,new Point(x,y)));
+                break;
+        }
+        System.out.println(fig);
+
 
     }
 
@@ -40,38 +61,28 @@ public class Drawing extends JPanel implements MouseInputListener {
     public void mouseReleased(MouseEvent e) {
 
     }
-
     @Override
     public void mouseEntered(MouseEvent e) {
 
     }
-
     @Override
     public void mouseExited(MouseEvent e) {
 
     }
-
     @Override
     public void mouseDragged(MouseEvent e) {
-        int x0= e.getX();
-        int y0 = e.getY();
-        Figure newFig;
-        if(this.fig == "Rectangle"){
-            newFig = new Rectangle(this.c,new Point(x0,y0));
-            listFig.add(newFig);
+        listFig.get(listFig.size()-1).setBoundingBox(Math.abs(y-e.getY()),Math.abs(x-e.getX()));
+        if(e.getX()<x && e.getY()<y){
+            listFig.get(listFig.size()-1).setP0(new Point(e.getX(),e.getY()));
         }
-        else if(this.fig == "Ellipse"){
-            newFig = new Rectangle(this.c,new Point(x0,y0));
-            listFig.add(newFig);
+        else if(e.getX()<x && e.getY()>y){
+            listFig.get(listFig.size()-1).setP0(new Point(e.getX(),y));
         }
-
-        Point pppp = new Point(e.getX(),e.getY());
-        System.out.println(pppp);
-
-        Graphics g = this.getGraphics();
-        g.setColor(Color.red);
-        this.dessiner(g);
-        System.out.println(g.getColor());
+        else if(e.getX()>x && e.getY()<y){
+            listFig.get(listFig.size()-1).setP0(new Point(x,e.getY()));
+        }
+        System.out.println(e.getY());
+        repaint();
     }
 
     @Override
@@ -79,7 +90,9 @@ public class Drawing extends JPanel implements MouseInputListener {
 
     }
 
-    public void dessiner(Graphics g){
+    @Override
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
         for (Figure f : listFig) {
             f.draw(g);
         }

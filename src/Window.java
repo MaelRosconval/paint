@@ -1,10 +1,7 @@
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 public class Window extends JFrame implements ActionListener{
     protected Drawing dessin = new Drawing();
@@ -45,7 +42,7 @@ public class Window extends JFrame implements ActionListener{
         southEast.setLayout(new GridLayout(0,2));
 
         /* On créer les boutons des figures */
-        JButton carre = new JButton("Carré");
+        JButton carre = new JButton("Carre");
         JButton rectangle = new JButton("Rectangle");
         JButton ellipse = new JButton("Ellipse");
         JButton cercle = new JButton("Cercle");
@@ -65,10 +62,10 @@ public class Window extends JFrame implements ActionListener{
         JButton bleu = new JButton("Bleu");
         JButton jaune = new JButton("Jaune");
         JButton vert = new JButton("Vert");
-        JButton noir = new JButton("Black");
-        JButton rose = new JButton("Pink");
+        JButton noir = new JButton("Noir");
+        JButton rose = new JButton("Rose");
         JButton magenta = new JButton("Magenta");
-        JButton blanc = new JButton("White");
+        JButton blanc = new JButton("Blanc");
 
         /* On modifie la couleur des bouttons*/
         rouge.setBackground(Color.RED);
@@ -90,6 +87,7 @@ public class Window extends JFrame implements ActionListener{
         magenta.addActionListener( this);
         vert.addActionListener( this);
         rose.addActionListener( this);
+
         carre.addActionListener( this);
         rectangle.addActionListener( this);
         cercle.addActionListener( this);
@@ -111,13 +109,11 @@ public class Window extends JFrame implements ActionListener{
         southPanel.add(southWest);
         southPanel.add(southEast);
         contentPanel.add(southPanel,"South");
-
+        this.setVisible(true);
         JPanel centrePanel = dessin;
         contentPanel.add(centrePanel,"Center");
 
         this.setVisible(true);
-
-
         }
 
         @Override
@@ -168,6 +164,7 @@ public class Window extends JFrame implements ActionListener{
                         break;
             }
         }
+
     public static void main (String[] args){
         Window win = new Window("Paint",800,600);
     }
