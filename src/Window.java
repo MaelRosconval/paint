@@ -94,6 +94,9 @@ public class Window extends JFrame implements ActionListener{
         ellipse.addActionListener( this);
 
         auteur.addActionListener( this);
+        save.addActionListener(this);
+        open.addActionListener(this);
+        nouveau.addActionListener(this);
 
 
         /* ajout des boutons*/
@@ -119,49 +122,59 @@ public class Window extends JFrame implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
             String cmd =e.getActionCommand();
-
             switch(cmd)
             {
-                    case "Rouge":
-                        dessin.setC(Color.RED);
-                        break;
-                    case "Bleu":
-                        dessin.setC(Color.BLUE);
-                        break;
-                    case "Rose":
-                        dessin.setC(Color.PINK);
-                        break;
-                    case "Vert":
-                        dessin.setC(Color.GREEN);
-                        break;
-                    case "Magenta":
-                        dessin.setC(Color.MAGENTA);
-                        break;
-                    case "Noir":
-                        dessin.setC(Color.BLACK);
-                        break;
-                    case "Blanc":
-                        dessin.setC(Color.WHITE);
-                        break;
-                    case "Jaune":
-                        dessin.setC(Color.YELLOW);
-                        break;
-                    case "Rectangle":
-                        dessin.setFig("Rectangle");
-                        break;
-                    case "Carre":
-                        dessin.setFig("Carre");
-                        break;
-                    case "Cercle":
-                        dessin.setFig("Cercle");
-                        break;
-                    case "Ellipse":
-                        dessin.setFig("Ellipse");
-                        break;
-                    case "Authors":
-                        JOptionPane info = new JOptionPane();
-                        info.showInternalMessageDialog(info,"Authors : Maël","information",JOptionPane.INFORMATION_MESSAGE);
-                        break;
+                case "Rouge":
+                    dessin.setC(Color.RED);
+                    break;
+                case "Bleu":
+                    dessin.setC(Color.BLUE);
+                    break;
+                case "Rose":
+                    dessin.setC(Color.PINK);
+                    break;
+                case "Vert":
+                    dessin.setC(Color.GREEN);
+                    break;
+                case "Magenta":
+                    dessin.setC(Color.MAGENTA);
+                    break;
+                case "Noir":
+                    dessin.setC(Color.BLACK);
+                    break;
+                case "Blanc":
+                    dessin.setC(Color.WHITE);
+                    break;
+                case "Jaune":
+                    dessin.setC(Color.YELLOW);
+                    break;
+                case "Rectangle":
+                    dessin.setFig("Rectangle");
+                    break;
+                case "Carre":
+                    dessin.setFig("Carre");
+                    break;
+                case "Cercle":
+                    dessin.setFig("Cercle");
+                    break;
+                case "Ellipse":
+                    dessin.setFig("Ellipse");
+                    break;
+                case "Authors":
+                    JOptionPane info = new JOptionPane();
+                    info.showInternalMessageDialog(info,"Authors : Maël","information",JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case "Save":
+                    //JOptionPane nomFichier = new JOptionPane();
+                    //String s=nomFichier.showInternalInputDialog(nomFichier,"Type the file name");
+                    dessin.save();
+                    break;
+                case "Open":
+                    dessin.open();
+                    break;
+                case "New":
+                    dessin.nouveau();
+                    break;
             }
         }
 

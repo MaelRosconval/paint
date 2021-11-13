@@ -1,8 +1,9 @@
 import java.awt.*;
 import java.awt.Graphics;
+import java.io.Serializable;
 
 
-public abstract class Figure {
+public abstract class Figure implements Serializable {
     protected Color c;
 
     public void setP0(Point p0) {
