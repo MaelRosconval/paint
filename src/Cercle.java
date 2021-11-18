@@ -9,9 +9,28 @@ public class Cercle extends Ellipse{
 
     @Override
     public void setBoundingBox(int length, int width){
-        super.length = Math.max(length,width);
-        super.width = Math.max(length,width);
-    }
+        int length1 = Math.max(Math.abs(length), Math.abs(width));
+        if ((width>0) && (length>0)) {
+            super.length = length1;
+            super.width = length1;
+        }
+        if ((width<0) && (length>0))
+        {
+            super.length = length1;
+            super.width = -length1;
+        }
+        if ((width>0) && (length<0))
+        {
+            super.length = -length1;
+            super.width = length1;
+        }
+        if ((width<0) && (length<0))
+        {
+            super.length = -length1;
+            super.width = -length1;
+        }
+
+}
 
     @Override
     public String toString(){

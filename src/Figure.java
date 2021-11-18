@@ -10,7 +10,7 @@ public abstract class Figure implements Serializable {
         this.p0 = p0;
     }
 
-    protected Point p0;
+    protected Point p0; // figure origin
 
     public Point getP0() {
         return p0;

@@ -19,7 +19,14 @@ public class Rectangle extends Figure {
 
     public void draw(Graphics g){
         g.setColor(c);
-        g.fillRect(this.p0.getX(), this.p0.getY(),this.width,this.length);
+        if ((this.width>0) && (this.length>0))
+            g.fillRect(this.p0.getX(), this.p0.getY(),this.width,this.length);
+        if ((this.width<0) && (this.length>0))
+            g.fillRect(this.p0.getX()+this.width, this.p0.getY(),-this.width,this.length);
+        if ((this.width>0) && (this.length<0))
+            g.fillRect(this.p0.getX(), this.p0.getY()+this.length,this.width,-this.length);
+        if ((this.width<0) && (this.length<0))
+            g.fillRect(this.p0.getX()+this.width, this.p0.getY()+this.length,-this.width,-this.length);
     }
 
     public static void main(String[] args){

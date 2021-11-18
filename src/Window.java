@@ -12,6 +12,10 @@ public class Window extends JFrame implements ActionListener{
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        /* Set image icon*/
+        ImageIcon img = new ImageIcon("icon.png");
+        this.setIconImage(img.getImage());
+
         Container contentPanel = this.getContentPane() ;
         /* Panel barre des menu*/
         JPanel northPanel = new JPanel(); //Création du panel
