@@ -12,6 +12,7 @@ public class Window extends JFrame implements ActionListener{
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
         /* Set image icon*/
         ImageIcon img = new ImageIcon("icon.png");
         this.setIconImage(img.getImage());
@@ -172,17 +173,20 @@ public class Window extends JFrame implements ActionListener{
                     //JOptionPane nomFichier = new JOptionPane();
                     //String s=nomFichier.showInternalInputDialog(nomFichier,"Type the file name");
                     dessin.save();
+                    this.setTitle(dessin.getDrawingName()+" - Paint");
                     break;
                 case "Open":
                     dessin.open();
+                    this.setTitle(dessin.getDrawingName()+" - Paint");
                     break;
                 case "New":
                     dessin.nouveau();
+                    this.setTitle("No name - Paint");
                     break;
             }
         }
 
     public static void main (String[] args){
-        Window win = new Window("Paint",800,600);
+        Window win = new Window("No name - Paint",800,600);
     }
 }

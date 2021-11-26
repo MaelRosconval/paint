@@ -19,6 +19,8 @@ public class Rectangle extends Figure {
 
     public void draw(Graphics g){
         g.setColor(c);
+        // fillRect function only draw in down-right direction
+        // therefore we must make different case to draw in every direction
         if ((this.width>0) && (this.length>0))
             g.fillRect(this.p0.getX(), this.p0.getY(),this.width,this.length);
         if ((this.width<0) && (this.length>0))
@@ -28,12 +30,4 @@ public class Rectangle extends Figure {
         if ((this.width<0) && (this.length<0))
             g.fillRect(this.p0.getX()+this.width, this.p0.getY()+this.length,-this.width,-this.length);
     }
-
-    public static void main(String[] args){
-        Rectangle r1 = new Rectangle(Color.RED,new Point(5,150));
-        Rectangle r2 = new Rectangle(Color.BLACK, new  Point(100,6));
-
-        System.out.println(r1);
-    }
-
 }

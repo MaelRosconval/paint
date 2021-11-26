@@ -4,20 +4,12 @@ import java.io.Serializable;
 
 
 public abstract class Figure implements Serializable {
-    protected Color c;
+    private static final long serialVersionUID = -6465015581713613484L;
+    // random number used for serializable object to be used on different laptop or different version
+    // otherwise a different serialVersionUID is generated
 
-    public void setP0(Point p0) {
-        this.p0 = p0;
-    }
-
+    protected Color c;  // figure color
     protected Point p0; // figure origin
-
-    public Point getP0() {
-        return p0;
-    }
-    public Color getC() {
-        return c;
-    }
 
     public abstract void setBoundingBox(int heightBB, int widthBB);
     public abstract void draw(Graphics g);

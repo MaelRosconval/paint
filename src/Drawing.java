@@ -7,12 +7,14 @@ import java.util.ArrayList;
 
 public class Drawing extends JPanel implements MouseInputListener {
     private Color c; // Current color
-    private ArrayList<Figure> listFig = new ArrayList<>();
+    private ArrayList<Figure> listFig = new ArrayList<>(); // list of figure to draw
     private String fig; // String corresponding to the current figure
-    private int x; //
-    private int y;
-    private String nomDrawing; // Current drawing useful to load other drawing
+    private String drawingName; // name of the current drawing
     private int saved; // boolean which indicates if the drawing has been saved
+
+    // origin point of the current drawing
+    private int x0;
+    private int y0;
 
     public void setC(Color c) {
         this.c = c;
@@ -26,14 +28,15 @@ public class Drawing extends JPanel implements MouseInputListener {
     public void setFig(String fig) {
         this.fig = fig;
     }
+    public String getDrawingName(){return this.drawingName;}
 
     public Drawing(){
         super();
         this.setBackground(Color.white);
         this.c = Color.BLACK;
         this.fig = "Rectangle";
-        this.nomDrawing = null;
-        this.saved = 1;
+        this.drawingName = null;
+        this.saved = 1; // we consider that the drawing is saved by default
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
@@ -45,20 +48,20 @@ public class Drawing extends JPanel implements MouseInputListener {
             if(btn==0){
                 save();
                 listFig.clear();
-                nomDrawing=null;
+                drawingName=null;
                 repaint();
             }
             else if(btn ==1) {
                 setSaved(1);
                 listFig.clear();
-                nomDrawing=null;
+                drawingName=null;
                 repaint();
             }
             else;
         }
         else{
             listFig.clear();
-            nomDrawing=null;
+            drawingName=null;
             repaint();
         }
 
@@ -67,11 +70,11 @@ public class Drawing extends JPanel implements MouseInputListener {
     /* Save the drawing*/
     public void save(){
         try{
-            if(nomDrawing==null){
-                nomDrawing = JOptionPane.showInputDialog(null,"File name : ","Save",JOptionPane.INFORMATION_MESSAGE);
+            if(drawingName==null){
+                drawingName = JOptionPane.showInputDialog(null,"File name : ","Save",JOptionPane.INFORMATION_MESSAGE);
 
             }
-            FileOutputStream fos = new FileOutputStream(nomDrawing);
+            FileOutputStream fos = new FileOutputStream(drawingName);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             oos.writeInt(this.listFig.size());
@@ -89,13 +92,13 @@ public class Drawing extends JPanel implements MouseInputListener {
     /* Load a previously saved drawing*/
     public void open(){
         try{
-            nomDrawing = JOptionPane.showInputDialog(null,"File name : ","Open",JOptionPane.INFORMATION_MESSAGE);
+            drawingName = JOptionPane.showInputDialog(null,"File name : ","Open",JOptionPane.INFORMATION_MESSAGE);
             if(getSaved()==0){
                 JOptionPane info = new JOptionPane();
                 int btnChoisi = info.showInternalConfirmDialog(info,"File not saved, do you want to save it ?","warning",JOptionPane.YES_NO_CANCEL_OPTION);
                 if(btnChoisi==0){
                     save();
-                    FileInputStream fis = new FileInputStream(nomDrawing);
+                    FileInputStream fis = new FileInputStream(drawingName);
                     ObjectInputStream ois = new ObjectInputStream(fis);
                     int n = ois.readInt();
                     listFig.clear();
@@ -108,7 +111,7 @@ public class Drawing extends JPanel implements MouseInputListener {
                 }
                 else if(btnChoisi ==1){
                     setSaved(1);
-                    FileInputStream fis = new FileInputStream(nomDrawing);
+                    FileInputStream fis = new FileInputStream(drawingName);
                     ObjectInputStream ois = new ObjectInputStream(fis);
                     int n = ois.readInt();
                     listFig.clear();
@@ -123,7 +126,7 @@ public class Drawing extends JPanel implements MouseInputListener {
             }
             else{
 
-                FileInputStream fis = new FileInputStream(nomDrawing);
+                FileInputStream fis = new FileInputStream(drawingName);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 int n = ois.readInt();
                 listFig.clear();
@@ -136,6 +139,7 @@ public class Drawing extends JPanel implements MouseInputListener {
             }
         }
         catch (Exception e){
+            System.out.println(e);
             JOptionPane.showMessageDialog(null,"File does not exist","File not found",JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -164,38 +168,30 @@ public class Drawing extends JPanel implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.x= e.getX();
-        this.y= e.getY();
+        this.x0= e.getX();
+        this.y0= e.getY();
         switch(fig){
             case "Carre":
-                listFig.add(new Carre(this.c,new Point(x,y)));
+                listFig.add(new Carre(this.c,new Point(x0,y0)));
                 break;
             case "Rectangle":
-                listFig.add(new Rectangle(this.c,new Point(x,y)));
+                listFig.add(new Rectangle(this.c,new Point(x0,y0)));
                 break;
             case "Ellipse":
-                listFig.add(new Ellipse(this.c,new Point(x,y)));
+                listFig.add(new Ellipse(this.c,new Point(x0,y0)));
                 break;
             case "Cercle":
-                listFig.add(new Cercle(this.c,new Point(x,y)));
+                listFig.add(new Cercle(this.c,new Point(x0,y0)));
                 break;
         }
         setSaved(0);
     }
     @Override
     public void mouseDragged(MouseEvent e) {
-        listFig.get(listFig.size()-1).setBoundingBox((-y+e.getY()),(-x+e.getX()));
-    /*    listFig.get(listFig.size()-1).setBoundingBox(Math.abs(y-e.getY()),Math.abs(x-e.getX()));
-        if(e.getX()<x && e.getY()<y){
-            listFig.get(listFig.size()-1).setP0(new Point(e.getX(),e.getY()));
-        }
-        else if(e.getX()<x && e.getY()>y){
-            listFig.get(listFig.size()-1).setP0(new Point(e.getX(),y));
-        }
-        else if(e.getX()>x && e.getY()<y){
-            listFig.get(listFig.size()-1).setP0(new Point(x,e.getY()));
-        }*/
+        listFig.get(listFig.size()-1).setBoundingBox((-y0+e.getY()),(-x0+e.getX()));
         repaint();
+
+
     }
     @Override
     public void paintComponent(Graphics g){
